@@ -1,5 +1,6 @@
 Package.describe({
-  summary: "Login service for Salesforce accounts"
+  summary: "Login service for Salesforce accounts",
+  internal: true
 });
 
 Package.on_use(function(api) {

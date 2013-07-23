@@ -6,5 +6,9 @@
     <li>
       Visit <a href="https://login.salesforce.com" target="_blank">https://login.salesforce.com</a>, login and create a new connected app.
     </li>
+    <li>
+      Set Callback URL to: <span class="url">{{siteUrl}}_oauth/salesforce?close=close</span>
+      (Notice the close=close, which is slightly different than the other Oauth Service. Indeed Salesforce removes itself this parameter if the key has no value, hence the popup will not close automatically)
+    </li>
   </ol>
 </template>

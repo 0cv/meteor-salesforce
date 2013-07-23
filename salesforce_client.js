@@ -16,18 +16,20 @@ Salesforce.requestCredential = function (options, credentialRequestCompleteCallb
     return;
   }
 
-  var credentialToken = Random.id();
+  var scope = (options && options.requestPermissions) || ['api'];
+  var flatScope = scope.join(' ');
+  var endPoint = (options && options.endPoint) || 'login.salesforce.com';
 
-  var scope = [];
-  if (options && options.requestPermissions) {
-      scope = options.requestPermissions.join('+');
-  }
+  //we need to be able to configure whether it's a sandbox, prod, ... but somehow, there is no way to have
+  //a proper way to forward the "options" to the server hence here the weird workaround for providing the endpoint
+  // to the server.
+  var credentialToken = Random.id() + '€€' + endPoint;
 
   var loginUrl =
-        'https://login.salesforce.com/services/oauth2/authorize' +
+        'https://'+endPoint+'/services/oauth2/authorize' +
         '?response_type=code' + '&client_id=' + config.clientId +
-        '&redirect_uri=' + encodeURIComponent(Meteor.absoluteUrl('_oauth/salesforce?close')) +
-        '&scope=' + scope + '&state=' + credentialToken + '&display=popup';
+        '&redirect_uri=' + encodeURIComponent(Meteor.absoluteUrl('_oauth/salesforce?close=close')) +
+        '&scope=' + flatScope + '&state=' + credentialToken;
 
-  Oauth.initiateLogin(credentialToken, loginUrl, credentialRequestCompleteCallback);
+  Oauth.initiateLogin(credentialToken, loginUrl, credentialRequestCompleteCallback, {width: 900, height: 450});
 };

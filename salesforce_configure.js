@@ -4,7 +4,7 @@ Template.configureLoginServiceDialogForSalesforce.siteUrl = function () {
 
 Template.configureLoginServiceDialogForSalesforce.fields = function () {
   return [
-    {property: 'clientId', label: 'API Key'},
-    {property: 'secret', label: 'Secret Key'}
+    {property: 'clientId', label: 'Consumer Key'},
+    {property: 'secret', label: 'Consumer Secret'}
   ];
 };
