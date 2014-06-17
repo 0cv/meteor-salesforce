@@ -23,7 +23,7 @@ Salesforce.requestCredential = function (options, credentialRequestCompleteCallb
   //we need to be able to configure whether it's a sandbox, prod, ... but somehow, there is no way to have
   //a proper way to forward the "options" to the server hence here the weird workaround for providing the endpoint
   // to the server.
-  var credentialToken = Random.id() + '€€' + endPoint;
+  var credentialToken = Random.id() + '__' + endPoint.replace(/\./g, '_');
 
   var loginUrl =
         'https://'+endPoint+'/services/oauth2/authorize' +

@@ -40,8 +40,8 @@ var getAccessToken = function (query) {
 
   var response;
   try {
-    //a bit weird, but it's the workaround to provide parameters.
-    query.endPoint = query.state.substring(query.state.lastIndexOf("€€")+2);
+    //a bit weird, but it's the workaround to provide parameters. (oauth's isSafe allows underscores and domains are not allowed to include them, so we should be safe)
+    query.endPoint = query.state.substring(query.state.lastIndexOf("__")+2).replace(/_/g, '.');
     response = Meteor.http.post(
       "https://" + query.endPoint + "/services/oauth2/token", {params: {
         code: query.code,
