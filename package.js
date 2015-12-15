@@ -1,21 +1,24 @@
 Package.describe({
+  name: "salesforce:salesforce",
   summary: "Login service for Salesforce accounts",
-  internal: true
+  version: "0.0.1",
+  git:"https://github.com/Krisa/meteor-salesforce.git"
 });
 
-Package.on_use(function(api) {
+Package.onUse(function(api) {
+  api.versionsFrom('1.2.1');
   api.use('oauth', ['client', 'server']);
   api.use('http', ['client', 'server']);
   api.use('service-configuration', ['client', 'server']);
   api.use('templating', 'client');
 
-  api.add_files(
+  api.addFiles(
     ['salesforce_configure.html', 'salesforce_configure.js'],
     'client');
 
-  api.add_files('salesforce_common.js', ['client', 'server']);
-  api.add_files('salesforce_server.js', 'server');
-  api.add_files('salesforce_client.js', 'client');
+  api.addFiles('salesforce_common.js', ['client', 'server']);
+  api.addFiles('salesforce_server.js', 'server');
+  api.addFiles('salesforce_client.js', 'client');
 
   api.export('Salesforce');
 });
