@@ -54,7 +54,7 @@ var getAccessToken = function(query) {
                     grant_type: 'authorization_code',
                     client_id: config.consumerKey || settings.consumerKey,
                     client_secret: OAuth.openSecret(config.consumerSecret || settings.consumerSecret),
-                    redirect_uri: Meteor.absoluteUrl('_oauth/salesforce?close=close')
+                    redirect_uri: Meteor.absoluteUrl('_oauth/salesforce')
                 }
             });
     } catch (err) {

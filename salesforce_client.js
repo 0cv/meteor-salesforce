@@ -4,7 +4,6 @@
 //   completion. Takes one argument, credentialToken on success, or Error on
 //   error.
 Salesforce.requestCredential = function(options, credentialRequestCompleteCallback) {
-    console.log('request credential start');
     // support both (options, callback) and (callback).
     if (!credentialRequestCompleteCallback && typeof options === 'function') {
         credentialRequestCompleteCallback = options;
@@ -43,7 +42,7 @@ Salesforce.requestCredential = function(options, credentialRequestCompleteCallba
     var loginUrl = 'https://' + endPoint + '/services/oauth2/authorize' +
         '?response_type=code' + 
         '&client_id=' + (config && config.consumerKey || settings && settings.consumerKey) +
-        '&redirect_uri=' + encodeURIComponent(Meteor.absoluteUrl('_oauth/salesforce')) + //?close=close
+        '&redirect_uri=' + encodeURIComponent(Meteor.absoluteUrl('_oauth/salesforce')) +
         '&scope=' + flatScope + 
         '&state=' + state;
 
