@@ -4,6 +4,7 @@
 //   completion. Takes one argument, credentialToken on success, or Error on
 //   error.
 Salesforce.requestCredential = function(options, credentialRequestCompleteCallback) {
+    console.log('request credential start');
     // support both (options, callback) and (callback).
     if (!credentialRequestCompleteCallback && typeof options === 'function') {
         credentialRequestCompleteCallback = options;
@@ -42,7 +43,7 @@ Salesforce.requestCredential = function(options, credentialRequestCompleteCallba
     var loginUrl = 'https://' + endPoint + '/services/oauth2/authorize' +
         '?response_type=code' + 
         '&client_id=' + (config && config.consumerKey || settings && settings.consumerKey) +
-        '&redirect_uri=' + encodeURIComponent(Meteor.absoluteUrl('_oauth/salesforce?close=close')) +
+        '&redirect_uri=' + encodeURIComponent(Meteor.absoluteUrl('_oauth/salesforce')) + //?close=close
         '&scope=' + flatScope + 
         '&state=' + state;
 
@@ -56,14 +57,16 @@ Salesforce.requestCredential = function(options, credentialRequestCompleteCallba
     });
 };
 
-OAuth._stateParam = function(loginStyle, credentialToken, loginUrl) {
+OAuth._stateParam = function(loginStyle, credentialToken, loginUrl, redirectUrl) {
     var state = {
         loginStyle: loginStyle,
         credentialToken: credentialToken,
         isCordova: Meteor.isCordova,
         loginUrl: loginUrl
     };
-
+    if (loginStyle === 'redirect') {
+        state.redirectUrl = redirectUrl || ('' + window.location);
+    }
     // Encode base64 as not all login services URI-encode the state
     // parameter when they pass it back to us.
     // Use the 'base64' package here because 'btoa' isn't supported in IE8/9.
