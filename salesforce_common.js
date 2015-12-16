@@ -1,3 +1,3 @@
 if (typeof Salesforce === 'undefined') {
-  Salesforce = {};
+	Salesforce = {};
 }
