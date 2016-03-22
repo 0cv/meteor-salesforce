@@ -30,7 +30,7 @@ Salesforce.requestCredential = function(options, credentialRequestCompleteCallba
     var flatScope = scope.join(' ');
 
     
-    var loginStyle = config && config.loginStyle || settings && settings.loginStyle || 'popup';
+    var loginStyle = options && options.loginStyle || config && config.loginStyle || settings && settings.loginStyle || 'popup';
     var credentialToken = new Meteor.Collection.ObjectID();
     var endPoint = options && options.endPoint || config && config.endPoint || settings && settings.endPoint || 'login.salesforce.com';
 
