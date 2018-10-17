@@ -46,6 +46,14 @@ Salesforce.requestCredential = function(options, credentialRequestCompleteCallba
         '&scope=' + flatScope + 
         '&state=' + state;
 
+    if (options && options.loginUrlParameters && typeof options.loginUrlParameters === 'object') {
+        loginUrl += '&' + Object.keys(options.loginUrlParameters)
+            .map(function(key) {
+                return key + '=' + encodeURIComponent(options.loginUrlParameters[key]);
+            })
+            .join('&');
+    }
+
     OAuth.launchLogin({
         loginService: 'salesforce',
         loginStyle: loginStyle,
